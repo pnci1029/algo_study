@@ -1,23 +1,18 @@
-import java.util.*;
 
 class Solution {
-    public int solution(int n) {
+    public int solution(int[] nums) {
         int answer = 0;
-        for (int i = 1; i < n ; i++) {
-            if (n % i == 1) {
-                answer = i;
-                break;
-            }
-        }
+
+
         return answer;
     }
 }
 
 public class Main {
     public static void main(String[] args) {
-        int n = 12;
+        int[] result = {1, 2, 7, 6, 4};
         Solution solution = new Solution();
-        System.out.println(solution.solution(n));
+        System.out.println(solution.solution(result));
 
     }
 }
