@@ -1,18 +1,20 @@
 
 class Solution {
-    public int solution(int[] nums) {
-        int answer = 0;
-
-
-        return answer;
+    public long solution(int price, int money, int count) {
+         return 0;
     }
 }
 
 public class Main {
     public static void main(String[] args) {
-        int[] result = {1, 2, 7, 6, 4};
+        int price = 3;
+
+        int money = 20;
+
+        int count = 4;
+
         Solution solution = new Solution();
-        System.out.println(solution.solution(result));
+        System.out.println(solution.solution(price, money, count));
 
     }
 }
