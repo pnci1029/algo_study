@@ -1,39 +1,44 @@
 import java.util.*;
 
 class Solution {
-    public int solution(int[] elements) {
+    HashSet<Integer> box = new HashSet<>();
 
-        Set<Integer> setBox = new HashSet<>();
-        int a = 1;
-        while (a < elements.length) {
-            for (int j = 0; j < elements.length; j++) {
-                int result = 0;
-                for (int k = j; k < j + a; k++) {
-                    result += elements[k % elements.length];
-                }
-                setBox.add(result);
+    public void recursive(String comb, String others) {
+        if (!comb.equals("")) {
+            box.add(Integer.valueOf(comb));
+        }
+        for (int i = 0; i < others.length(); i++) {
+            recursive(comb + others.charAt(i), others.substring(0,i) + others.substring(i+1));
+        }
+    }
+    public int solution(String numbers) {
+
+        recursive("", numbers);
+
+        boolean[] isPrime = new boolean[10000000];
+        isPrime[0] = isPrime[1] = true;
+        for (int i = 2; i*i < 10000000; i++) {
+            for (int j = i * i; j < 10000000; j+=i) {
+                isPrime[j] = true;
             }
-            a++;
         }
 
-        int sum = 0;
-        for (int i = 0; i < elements.length; i++) {
-            sum += elements[i];
-
-            setBox.add(sum);
-
+        int answer = 0;
+        for (Integer integer : box) {
+            if (!isPrime[integer]) {
+                answer++;
+            }
         }
 
-        int answer = setBox.size();
         return answer;
     }
 }
 
 public class Main {
     public static void main(String[] args) {
-        int[] element = {7, 9, 1, 1, 4};
+        String numbers = "17";
         Solution solution = new Solution();
-        System.out.println(solution.solution(element));
+        System.out.println(solution.solution(numbers));
 
     }
 }
