@@ -1,44 +1,34 @@
 import java.util.*;
 
 class Solution {
-    HashSet<Integer> box = new HashSet<>();
+    public String solution(String number, int k) {
+        StringBuilder answer = new StringBuilder("");
+        int length = number.length() - k;
+        int a = 0;
 
-    public void recursive(String comb, String others) {
-        if (!comb.equals("")) {
-            box.add(Integer.valueOf(comb));
-        }
-        for (int i = 0; i < others.length(); i++) {
-            recursive(comb + others.charAt(i), others.substring(0,i) + others.substring(i+1));
-        }
-    }
-    public int solution(String numbers) {
-
-        recursive("", numbers);
-
-        boolean[] isPrime = new boolean[10000000];
-        isPrime[0] = isPrime[1] = true;
-        for (int i = 2; i*i < 10000000; i++) {
-            for (int j = i * i; j < 10000000; j+=i) {
-                isPrime[j] = true;
+        while(a < number.length() && answer.length() != length) {
+            int leftNum = k + answer.length() + 1;
+            int max = 0;
+            for (int j = a; j < leftNum; j++) {
+                if (max < number.charAt(j) - '0') {
+                    max = number.charAt(j) - '0';
+                    a = j + 1;
+                    System.out.println("max = " + max);
+                    System.out.println("a = " + a);
+                }
             }
+            answer.append(Integer.toString(max));
         }
-
-        int answer = 0;
-        for (Integer integer : box) {
-            if (!isPrime[integer]) {
-                answer++;
-            }
-        }
-
-        return answer;
+        return answer.toString();
     }
 }
 
 public class Main {
     public static void main(String[] args) {
-        String numbers = "17";
+
+        String number = "1231234";
         Solution solution = new Solution();
-        System.out.println(solution.solution(numbers));
+        System.out.println(solution.solution(number, 3));
 
     }
 }
