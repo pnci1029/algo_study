@@ -1,34 +1,39 @@
 import java.util.*;
 
 class Solution {
-    public String solution(String number, int k) {
-        StringBuilder answer = new StringBuilder("");
-        int length = number.length() - k;
-        int a = 0;
+    public String solution(String s) {
+        String answer = "";
 
-        while(a < number.length() && answer.length() != length) {
-            int leftNum = k + answer.length() + 1;
-            int max = 0;
-            for (int j = a; j < leftNum; j++) {
-                if (max < number.charAt(j) - '0') {
-                    max = number.charAt(j) - '0';
-                    a = j + 1;
-                    System.out.println("max = " + max);
-                    System.out.println("a = " + a);
-                }
+        String[] split = s.split("");
+
+
+        answer += split[0].toUpperCase();
+        for (int i = 0; i < split.length-1; i++) {
+            if (split[i].equals(" ")) {
+                answer +=split[i + 1].toUpperCase();
+            } else {
+                answer += split[i+1].toLowerCase();
+
             }
-            answer.append(Integer.toString(max));
+
         }
-        return answer.toString();
+
+        return answer;
     }
 }
 
 public class Main {
     public static void main(String[] args) {
 
-        String number = "1231234";
+        String number = "3people unFollowed me";
+        String number1 = "a a a a a              a a a a a ";
+        String number2 = "for the last week";
         Solution solution = new Solution();
-        System.out.println(solution.solution(number, 3));
+        System.out.println(solution.solution(number));
+        System.out.println(solution.solution(number1));
+        System.out.println(solution.solution(number2));
+
+
 
     }
 }
