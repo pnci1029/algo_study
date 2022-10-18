@@ -1,17 +1,31 @@
 import java.util.*;
 class Solution {
-    public int solution(int[] citations) {
-        int answer = 0;
-        Arrays.sort(citations);
+    boolean solution(String s) {
+        boolean answer = true;
+        int leftCount = 0;
+        int rightCount = 0;
 
-        for (int i = 0; i < citations.length; i++) {
-            int h = citations.length - i;
-
-            if (citations[i] >= h) {
-                answer = h;
-                break;
+        if (s.charAt(0) == ')') {
+            answer =  false;
+            leftCount++;
+        } else if (s.charAt(s.length() - 1) == '(') {
+            answer =  false;
+            rightCount++;
+        }
+        for (int i = 0; i < s.length(); i++) {
+            if (s.charAt(i) == '(') {
+                leftCount++;
+            } else {
+                rightCount++;
+            }
+            if (leftCount < rightCount) {
+                answer = false;
             }
         }
+        if (leftCount != rightCount) {
+            answer = false;
+        }
+
 
         return answer;
     }
@@ -19,8 +33,10 @@ class Solution {
 public class Main {
     public static void main(String[] args) {
 
-        int[] box = {3, 0, 6, 1, 5};
+        String s = "()()";
+        String s1 = "()))((()";
         Solution solution = new Solution();
-        System.out.println(solution.solution(box));
+        System.out.println(solution.solution(s));
+        System.out.println(solution.solution(s1));
     }
 }
