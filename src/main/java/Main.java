@@ -1,25 +1,26 @@
-import java.util.Arrays;
+import java.util.HashMap;
 
 class Solution {
-    public int solution(int[] A, int[] B) {
+    public int solution(String[][] clothes) {
+        int answer = 1;
+        HashMap<String, Integer> result = new HashMap<>();
 
-        int answer = 0;
-        Arrays.sort(A);
-        Arrays.sort(B);
-
-        for (int i = 0; i < A.length; i++) {
-            answer += A[i] * B[A.length -i-1];
+        for (int i = 0; i < clothes.length; i++) {
+            result.put(clothes[i][1], result.getOrDefault(clothes[i][1],0) +1);
         }
-
-        return answer;
+        for (Integer value : result.values()) {
+            answer *= value+1;
+        }
+            return answer -1;
     }
 }
 
 public class Main {
     public static void main(String[] args) {
-        int[] box1 = {1, 4, 2};
-        int[] box2 = {5, 4, 4};
+        String[][] clothes = {{"yellow_hat", "headgear"}, {"blue_sunglasses", "eyewear"}, {"green_turban", "headgear"}};
+        String[][] clothes2 = {{"yellow_hat", "face"}, {"blue_sunglasses", "face"}, {"green_turban", "face"}};
         Solution solution = new Solution();
-        System.out.println(solution.solution(box1, box2));
+        System.out.println(solution.solution(clothes));
+        System.out.println(solution.solution(clothes2));
     }
 }
