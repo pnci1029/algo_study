@@ -1,42 +1,25 @@
-import java.util.*;
+import java.util.Arrays;
+
 class Solution {
-    boolean solution(String s) {
-        boolean answer = true;
-        int leftCount = 0;
-        int rightCount = 0;
+    public int solution(int[] A, int[] B) {
 
-        if (s.charAt(0) == ')') {
-            answer =  false;
-            leftCount++;
-        } else if (s.charAt(s.length() - 1) == '(') {
-            answer =  false;
-            rightCount++;
-        }
-        for (int i = 0; i < s.length(); i++) {
-            if (s.charAt(i) == '(') {
-                leftCount++;
-            } else {
-                rightCount++;
-            }
-            if (leftCount < rightCount) {
-                answer = false;
-            }
-        }
-        if (leftCount != rightCount) {
-            answer = false;
-        }
+        int answer = 0;
+        Arrays.sort(A);
+        Arrays.sort(B);
 
+        for (int i = 0; i < A.length; i++) {
+            answer += A[i] * B[A.length -i-1];
+        }
 
         return answer;
     }
 }
+
 public class Main {
     public static void main(String[] args) {
-
-        String s = "()()";
-        String s1 = "()))((()";
+        int[] box1 = {1, 4, 2};
+        int[] box2 = {5, 4, 4};
         Solution solution = new Solution();
-        System.out.println(solution.solution(s));
-        System.out.println(solution.solution(s1));
+        System.out.println(solution.solution(box1, box2));
     }
 }
