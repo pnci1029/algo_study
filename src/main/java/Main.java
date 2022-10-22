@@ -1,26 +1,33 @@
 import java.util.HashMap;
 
 class Solution {
-    public int solution(String[][] clothes) {
-        int answer = 1;
-        HashMap<String, Integer> result = new HashMap<>();
+    public int solution(int a, int b, int n) {
+        int answer = 0;
+        int count = 0;
+        int newBottle = 0;
 
-        for (int i = 0; i < clothes.length; i++) {
-            result.put(clothes[i][1], result.getOrDefault(clothes[i][1],0) +1);
+        while (n >= a) {
+
+            count = n / a;
+            System.out.println("count = " + count);
+            n -= count * a;
+            System.out.println("n = " + n);
+            newBottle = count * b;
+            answer += newBottle;
+            n += newBottle;
+
         }
-        for (Integer value : result.values()) {
-            answer *= value+1;
-        }
-            return answer -1;
+
+        return answer;
     }
 }
 
 public class Main {
     public static void main(String[] args) {
-        String[][] clothes = {{"yellow_hat", "headgear"}, {"blue_sunglasses", "eyewear"}, {"green_turban", "headgear"}};
-        String[][] clothes2 = {{"yellow_hat", "face"}, {"blue_sunglasses", "face"}, {"green_turban", "face"}};
+        int a= 2;
+        int b = 1;
+        int c = 20;
         Solution solution = new Solution();
-        System.out.println(solution.solution(clothes));
-        System.out.println(solution.solution(clothes2));
+        System.out.println(solution.solution(a,b,c));
     }
 }
