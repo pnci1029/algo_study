@@ -1,33 +1,32 @@
-class Solution {
-    public int[] solution(String s) {
-        int[] answer = new int[2];
-        String[] split = s.split("");
+import java.util.Stack;
 
-        int zeroCount = 0;
-        int changeCount = 0;
+class Solution
+{
+    public int solution(String s)
+    {
+        int answer = -1;
+        Stack<Character> result = new Stack<>();
 
-
-        while (!s.equals("1")) {
-            int oneCount = 0;
-            for (int i = 0; i < s.length(); i++) {
-                if (s.charAt(i) == '0') {
-                    zeroCount++;
-                } else {
-                    oneCount++;
-                }
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            if (!result.isEmpty() && result.peek() == c) {
+                result.pop();
+            } else {
+                result.push(c);
             }
-            s = Integer.toBinaryString(oneCount);
-            changeCount++;
         }
-        answer[0] = changeCount;
-        answer[1] = zeroCount;
+        if (result.size() == 0) {
+            answer = 1;
+        } else {
+            answer = 0;
+        }
 
         return answer;
     }
 }
 public class Main {
     public static void main(String[] args) {
-        String s = "110010101001";
+        String s = "cdcd";
         Solution solution = new Solution();
         System.out.println(solution.solution(s));
     }
