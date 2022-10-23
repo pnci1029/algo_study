@@ -1,33 +1,25 @@
-import java.util.Stack;
+import java.util.ArrayList;
+import java.util.List;
 
-class Solution
-{
-    public int solution(String s)
-    {
-        int answer = -1;
-        Stack<Character> result = new Stack<>();
+class Solution {
+    public List<Integer> solution(int n, long left, long right) {
+        int[] answer = {};
+        List<Integer> result = new ArrayList<>();
 
-        for (int i = 0; i < s.length(); i++) {
-            char c = s.charAt(i);
-            if (!result.isEmpty() && result.peek() == c) {
-                result.pop();
-            } else {
-                result.push(c);
-            }
-        }
-        if (result.size() == 0) {
-            answer = 1;
-        } else {
-            answer = 0;
+        for (long i = left; i <= right; i++) {
+            result.add((int)(Math.max(i / n, i % n) +1));
         }
 
-        return answer;
+        return result;
     }
 }
+
 public class Main {
     public static void main(String[] args) {
-        String s = "cdcd";
+        int n =4;
+        long a =7;
+        long b =14;
         Solution solution = new Solution();
-        System.out.println(solution.solution(s));
+        System.out.println(solution.solution(n,a,b));
     }
 }
