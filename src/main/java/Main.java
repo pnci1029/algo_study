@@ -1,33 +1,34 @@
-import java.util.HashMap;
-
 class Solution {
-    public int solution(int a, int b, int n) {
-        int answer = 0;
-        int count = 0;
-        int newBottle = 0;
+    public int[] solution(String s) {
+        int[] answer = new int[2];
+        String[] split = s.split("");
 
-        while (n >= a) {
+        int zeroCount = 0;
+        int changeCount = 0;
 
-            count = n / a;
-            System.out.println("count = " + count);
-            n -= count * a;
-            System.out.println("n = " + n);
-            newBottle = count * b;
-            answer += newBottle;
-            n += newBottle;
 
+        while (!s.equals("1")) {
+            int oneCount = 0;
+            for (int i = 0; i < s.length(); i++) {
+                if (s.charAt(i) == '0') {
+                    zeroCount++;
+                } else {
+                    oneCount++;
+                }
+            }
+            s = Integer.toBinaryString(oneCount);
+            changeCount++;
         }
+        answer[0] = changeCount;
+        answer[1] = zeroCount;
 
         return answer;
     }
 }
-
 public class Main {
     public static void main(String[] args) {
-        int a= 2;
-        int b = 1;
-        int c = 20;
+        String s = "110010101001";
         Solution solution = new Solution();
-        System.out.println(solution.solution(a,b,c));
+        System.out.println(solution.solution(s));
     }
 }
