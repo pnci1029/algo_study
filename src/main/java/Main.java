@@ -1,35 +1,39 @@
-import java.util.Arrays;
-import java.util.Collections;
+import java.util.*;
 
 class Solution {
-    public int solution(int n) {
-        int answer = 0;
-        boolean[] box = new boolean[1000000];
-        Arrays.fill(box,false);
+    public List<String> solution(String[] strings, int n) {
+        String[] answer = new String[strings.length];
 
-        box[0] = box[1] = true;
-        for (int i = 2; i * i < 1000000; i++) {
-            for (int j = i * i; j < 1000000; j+=i) {
-                    box[j] = true;
-            }
+        Arrays.sort(strings);
 
+        List<Character> box = new ArrayList<>();
+        for (int i = 0; i < strings.length; i++) {
+            box.add(strings[i].charAt(n));
         }
 
-        for (int i = 0; i <= n; i++) {
-            if (!box[i]) {
-                answer++;
+        Collections.sort(box);
+
+        List<String> result = new ArrayList<>();
+
+        for (Character character : box) {
+            for (int i =0; i< strings.length; i++) {
+                if (strings[i].charAt(n) == character && !result.contains(strings[i])) {
+                    result.add(strings[i]);
+                }
             }
         }
 
-        return answer;
+        return result;
     }
 }
 
 public class Main {
     public static void main(String[] args) {
+//        String[] string = {"sun", "bed", "car"};
+        String[] string = {"abce", "abcd", "cdx"};
+        int n = 2;
 
-        int n =10;
         Solution solution = new Solution();
-        System.out.println(solution.solution(n));
+        System.out.println(solution.solution(string, n));
     }
 }
