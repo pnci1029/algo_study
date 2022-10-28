@@ -1,39 +1,45 @@
 import java.util.*;
 
 class Solution {
-    public List<String> solution(String[] strings, int n) {
-        String[] answer = new String[strings.length];
+    public String solution(String s, int n) {
+        String answer = "";
 
-        Arrays.sort(strings);
+        char[] chars = s.toCharArray();
 
-        List<Character> box = new ArrayList<>();
-        for (int i = 0; i < strings.length; i++) {
-            box.add(strings[i].charAt(n));
-        }
-
-        Collections.sort(box);
-
-        List<String> result = new ArrayList<>();
-
-        for (Character character : box) {
-            for (int i =0; i< strings.length; i++) {
-                if (strings[i].charAt(n) == character && !result.contains(strings[i])) {
-                    result.add(strings[i]);
+        for (char aChar : chars) {
+            if (aChar <= 90 && aChar >= 65) {
+                if ((char) (aChar + n) > 90) {
+                    answer += (char) (aChar + n -26);
+                } else {
+                    answer += (char) (aChar + n);
                 }
+            }
+            if (aChar <= 122 && aChar >= 97) {
+                if ((char) (aChar + n) > 122) {
+                    answer += (char) (aChar + n -26);
+                } else {
+                    answer += (char) (aChar + n);
+                }
+            }
+
+            if (aChar == ' ') {
+                answer += ' ';
             }
         }
 
-        return result;
+        return answer;
     }
 }
 
 public class Main {
     public static void main(String[] args) {
-//        String[] string = {"sun", "bed", "car"};
-        String[] string = {"abce", "abcd", "cdx"};
-        int n = 2;
+//        String s = "AB";
+//        String s = "a B z";
+//        String s = "z";
+        String s = "Z";
+        int n = 1;
 
         Solution solution = new Solution();
-        System.out.println(solution.solution(string, n));
+        System.out.println(solution.solution(s, n));
     }
 }
