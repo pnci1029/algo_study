@@ -1,60 +1,26 @@
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 class Solution {
-    public String solution(String X, String Y) {
-        StringBuilder answer = new StringBuilder();
-
-        int[] a = new int[10];
-        int[] b = new int[10];
-
-        String[] splitA = X.split("");
-        String[] splitB = Y.split("");
-
-        for (String s : splitA) {
-            a[Integer.parseInt(s)]++;
-        }
-        for (String s : splitB) {
-            b[Integer.parseInt(s)]++;
-        }
-
-        HashMap<Integer, Integer> hashMap = new HashMap<>();
-        for (int i = a.length - 1; i >= 0; i--) {
-            int min = Math.min(a[i], b[i]);
-            if (a[i] >= 1 && b[i] >= 1) {
-                hashMap.put(i, min);
-            }
-        }
-        List<Integer> resultBox = new ArrayList<>();
-        for (Integer key : hashMap.keySet()) {
-            int hashBox = hashMap.get(key);
-            while (hashBox >= 1) {
-                hashBox--;
-                resultBox.add(key);
-            }
-        }
-        Collections.reverse(resultBox);
-
-        for (Integer box : resultBox) {
-            answer.append((box));
-        }
-        if (hashMap.isEmpty()) {
-            return "-1";
-        }
-        if (answer.charAt(0) == '0') {
-            return "0";
-        }
+    public int solution(int n) {
+        int answer = 0;
 
 
-        return answer.toString();
+        List<Integer> box = new ArrayList<>();
+        box.add(0);
+        box.add(1);
+        for (int i = 2; i < n+1; i++) {
+            box.add((box.get(i - 2) + box.get(i - 1)) % 1234567);
+        }
+        answer = box.get(box.size() - 1);
+        return answer;
     }
 }
-
 public class Main {
     public static void main(String[] args) {
 
-        String x = "000000000000000100000";
-        String y = "0000000000000001111111111111100000";
+        int n = 5;
         Solution solution = new Solution();
-        System.out.println(solution.solution(x, y));
+        System.out.println(solution.solution(n));
     }
 }
