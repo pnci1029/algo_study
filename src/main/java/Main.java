@@ -1,26 +1,33 @@
-import java.util.ArrayList;
-import java.util.List;
-
 class Solution {
-    public int solution(int n) {
+    public int solution(String s) {
         int answer = 0;
 
-
-        List<Integer> box = new ArrayList<>();
-        box.add(0);
-        box.add(1);
-        for (int i = 2; i < n+1; i++) {
-            box.add((box.get(i - 2) + box.get(i - 1)) % 1234567);
+        String[] split = s.split("");
+        for (int i = 0; i < split.length; i++) {
+            if (split[i].contains("z") ||split[i].contains("o") || split[i].contains("t") || split[i].contains("f") || split[i].contains("s") || split[i].contains("e") || split[i].contains("n")) {
+                s = s.replace("zero", "0");
+                s = s.replace("one", "1");
+                s = s.replace("two", "2");
+                s = s.replace("three", "3");
+                s = s.replace("four", "4");
+                s = s.replace("five", "5");
+                s = s.replace("six", "6");
+                s = s.replace("seven", "7");
+                s = s.replace("eight", "8");
+                s = s.replace("nine", "9");
+                break;
+            }
         }
-        answer = box.get(box.size() - 1);
+
+        answer = Integer.parseInt(s);
         return answer;
     }
 }
 public class Main {
     public static void main(String[] args) {
 
-        int n = 5;
+        String s = "one4seveneight";
         Solution solution = new Solution();
-        System.out.println(solution.solution(n));
+        System.out.println(solution.solution(s));
     }
 }
