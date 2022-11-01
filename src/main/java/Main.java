@@ -1,40 +1,41 @@
-import java.util.ArrayList;
-import java.util.List;
-
 class Solution {
-    public int solution(int[] priorities, int location) {
+    public int solution(String[] babbling) {
         int answer = 0;
+        String[] box = {"aya", "ye", "woo", "ma"};
 
-        List<Integer> box = new ArrayList<>();
-        for (int priority : priorities)
-            box.add(priority);
-
-        int count = 0;
-        while (!box.isEmpty()) {
-            Integer target = box.remove(0);
-            if (box.stream().anyMatch(compare -> target < compare)) {
-                box.add(target);
-            } else {
-                count++;
-                if (location == 0) {
-                    break;
-                }
+        for (int i = 0; i < babbling.length; i++) {
+            if (babbling[i].contains("aya")) {
+                babbling[i] = babbling[i].replace("aya","1");
             }
-            location--;
-            if (location < 0) {
-                location = box.size() - 1;
+            if (babbling[i].contains("woo")) {
+                babbling[i] = babbling[i].replace("woo","1");
+            }
+            if (babbling[i].contains("ye")) {
+                babbling[i] = babbling[i].replace("ye","1");
+            }
+            if (babbling[i].contains("ma")) {
+                babbling[i] = babbling[i].replace("ma","1");
             }
         }
 
-        return count;
+        for (String s : babbling) {
+            if (s.equals("1") || s.equals("111") || s.equals("11") || s.equals("1111")) {
+                answer++;
+            }
+            System.out.println("s = " + s);
+        }
+
+        return answer;
     }
 }
+
 public class Main {
     public static void main(String[] args) {
 
-        int[] box = {1, 1, 9, 1, 1, 1};
-        int n = 0;
+        String[] box = {"aya", "yee", "u", "maa", "wyeoo"};
+
+
         Solution solution = new Solution();
-        System.out.println(solution.solution(box,n));
+        System.out.println(solution.solution(box));
     }
 }
