@@ -1,28 +1,26 @@
-class Solution {
-    public int solution(String[] babbling) {
-        int answer = 0;
-        String[] box = {"aya", "ye", "woo", "ma"};
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
-        for (int i = 0; i < babbling.length; i++) {
-            if (babbling[i].contains("aya")) {
-                babbling[i] = babbling[i].replace("aya","1");
-            }
-            if (babbling[i].contains("woo")) {
-                babbling[i] = babbling[i].replace("woo","1");
-            }
-            if (babbling[i].contains("ye")) {
-                babbling[i] = babbling[i].replace("ye","1");
-            }
-            if (babbling[i].contains("ma")) {
-                babbling[i] = babbling[i].replace("ma","1");
+class Solution {
+    public int solution(int[][] dots) {
+        int answer = 0;
+
+
+        List<Double> box = new ArrayList<>();
+        Set<Double> compBox = new HashSet<>();
+        for (int i = 0; i < dots.length; i++) {
+            for (int j = i + 1; j < dots.length; j++) {
+                double first = dots[i][0] - dots[j][0];
+                double sec = dots[i][1] - dots[j][1];
+                double result = first / sec;
+                box.add(result);
+                compBox.add(result);
             }
         }
-
-        for (String s : babbling) {
-            if (s.equals("1") || s.equals("111") || s.equals("11") || s.equals("1111")) {
-                answer++;
-            }
-            System.out.println("s = " + s);
+        if (box.size() != compBox.size()) {
+            return 1;
         }
 
         return answer;
@@ -32,7 +30,8 @@ class Solution {
 public class Main {
     public static void main(String[] args) {
 
-        String[] box = {"aya", "yee", "u", "maa", "wyeoo"};
+//        int[][] box = {{1, 4}, {9, 2}, {3, 8}, {11, 6}};
+        int[][] box = {{3, 5}, {4, 1}, {2, 4}, {5, 10}};
 
 
         Solution solution = new Solution();
