@@ -1,38 +1,29 @@
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 class Solution {
-    public int solution(int[][] dots) {
-        int answer = 0;
+    public List<Integer> solution(int[] arr) {
+        int[] answer = new int[arr.length-1];
 
-
-        List<Double> box = new ArrayList<>();
-        Set<Double> compBox = new HashSet<>();
-        for (int i = 0; i < dots.length; i++) {
-            for (int j = i + 1; j < dots.length; j++) {
-                double first = dots[i][0] - dots[j][0];
-                double sec = dots[i][1] - dots[j][1];
-                double result = first / sec;
-                box.add(result);
-                compBox.add(result);
+        int count = arr[0];
+        List<Integer> box = new ArrayList<>();
+        box.add(count);
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] != count) {
+                box.add(arr[i]);
+                count = arr[i];
             }
         }
-        if (box.size() != compBox.size()) {
-            return 1;
-        }
-
-        return answer;
+        return box;
     }
 }
 
 public class Main {
     public static void main(String[] args) {
 
-//        int[][] box = {{1, 4}, {9, 2}, {3, 8}, {11, 6}};
-        int[][] box = {{3, 5}, {4, 1}, {2, 4}, {5, 10}};
-
+//        int[] box = {1, 1, 3, 3, 0, 1, 1};
+//        int[] box = {4, 4, 4, 3, 3};
+        int[] box = {1, 2,3,4,5};
 
         Solution solution = new Solution();
         System.out.println(solution.solution(box));
