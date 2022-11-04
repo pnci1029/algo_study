@@ -1,30 +1,28 @@
-import java.util.ArrayList;
-import java.util.List;
-
 class Solution {
-    public List<Integer> solution(int[] arr) {
-        int[] answer = new int[arr.length-1];
+    public String solution(String s) {
+        String answer = "";
+        String[] s1 = s.split("");
 
-        int count = arr[0];
-        List<Integer> box = new ArrayList<>();
-        box.add(count);
-        for (int i = 0; i < arr.length; i++) {
-            if (arr[i] != count) {
-                box.add(arr[i]);
-                count = arr[i];
+        int count = 0;
+        for (int i = 0; i < s1.length; i++) {
+            if (s1[i].equals(" ")) {
+                count = 1;
+            } else if (count % 2 == 0) {
+                s1[i] = s1[i].toUpperCase();
+            } else {
+                s1[i] = s1[i].toLowerCase();
             }
+            answer += s1[i];
+            count++;
         }
-        return box;
+        return answer;
     }
 }
 
 public class Main {
     public static void main(String[] args) {
-
-//        int[] box = {1, 1, 3, 3, 0, 1, 1};
-//        int[] box = {4, 4, 4, 3, 3};
-        int[] box = {1, 2,3,4,5};
-
+        String box = "try hello world";
+//        String box = "  tRy hello  WORLD    ";
         Solution solution = new Solution();
         System.out.println(solution.solution(box));
     }
