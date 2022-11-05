@@ -1,28 +1,33 @@
-class Solution {
-    public String solution(String s) {
-        String answer = "";
-        String[] s1 = s.split("");
+import java.util.Collections;
+import java.util.Stack;
 
-        int count = 0;
-        for (int i = 0; i < s1.length; i++) {
-            if (s1[i].equals(" ")) {
-                count = 1;
-            } else if (count % 2 == 0) {
-                s1[i] = s1[i].toUpperCase();
-            } else {
-                s1[i] = s1[i].toLowerCase();
+class Solution {
+    public int solution(int[] ingredient) {
+        int answer = 0;
+
+        StringBuilder letter = new StringBuilder();
+        for (int i = 0; i < ingredient.length; i++) {
+            letter.append(ingredient[i]);
+            if (letter.length() > 3 && letter.subSequence(letter.length() - 4, letter.length()).equals("1231")) {
+                answer++;
+                letter.delete(letter.length() - 4, letter.length());
             }
-            answer += s1[i];
-            count++;
         }
+
+
         return answer;
     }
 }
 
 public class Main {
     public static void main(String[] args) {
-        String box = "try hello world";
-//        String box = "  tRy hello  WORLD    ";
+        int[] box = {2, 1, 1, 2, 3, 1, 2, 3, 1};
+//        int[] box = {1, 3, 2, 1, 2, 1, 3, 1, 2};
+//        int[] box = {1,2,1,2,3,1,3,1,2,3,1,2,3,1};
+//        int[] box = {1,2,2,3,1};
+
+
+
         Solution solution = new Solution();
         System.out.println(solution.solution(box));
     }
