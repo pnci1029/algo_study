@@ -1,38 +1,39 @@
+class Solution {
+    public int solution(String[] babbling) {
+        int answer = 0;
 
-//class Solution {
-//    public int solution(int[] ingredient) {
-//        int answer = 0;
-//
-//        StringBuilder letter = new StringBuilder();
-//        for (int i = 0; i < ingredient.length; i++) {
-//            letter.append(ingredient[i]);
-//            if (letter.length() > 3 && letter.subSequence(letter.length() - 4, letter.length()).equals("1231")) {
-//                answer++;
-//                letter.delete(letter.length() - 4, letter.length());
-//            }
-//        }
-//
-//
-//        return answer;
-//    }
-//}
+        for (String s : babbling) {
+            if (!s.contains("ayaaya")&&s.contains("aya")) {
+                s = s.replace("aya", "1");
+            }
+            if (!s.contains("yeye")&&s.contains("ye")) {
+                s = s.replace("ye", "1");
+            }
+            if (!s.contains("mama")&&s.contains("ma")) {
+                s = s.replace("ma", "1");
+            }
+            if (!s.contains("woowoo")&&s.contains("woo")) {
+                s = s.replace("woo", "1");
+            }
+            if (s.contains("1")) {
+                s = s.replace("1", "");
+            }
+            if (s.equals("")) {
+                answer++;
+            }
+        }
 
-import java.util.Scanner;
+        return answer;
+    }
+}
+
 
 public class Main {
     public static void main(String[] args) {
 
-        Scanner data = new Scanner(System.in);
-        int A = data.nextInt();
-        int B = data.nextInt();
+        String[] box = {"ayaye", "uuu", "yeye", "yemawoo", "ayaayaa","ymae","wooyemawooye"};
 
-        System.out.println(A*(B%10));
-        System.out.println(A * ((B-(B / 100 * 100))/10));
-        System.out.println(A*(B/100));
-        System.out.println(A*B);
-
-
-//        Solution solution = new Solution();
-//        System.out.println(solution.solution(box));
+        Solution solution = new Solution();
+        System.out.println(solution.solution(box));
     }
 }
