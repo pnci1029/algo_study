@@ -1,37 +1,29 @@
 class Solution {
-    public int solution(String[] babbling) {
-        int answer = 0;
+    public String solution(int[] food) {
+        String answer = "";
+        int count = 0;
 
-        for (String s : babbling) {
-            if (!s.contains("ayaaya")&&s.contains("aya")) {
-                s = s.replace("aya", "1");
-            }
-            if (!s.contains("yeye")&&s.contains("ye")) {
-                s = s.replace("ye", "1");
-            }
-            if (!s.contains("mama")&&s.contains("ma")) {
-                s = s.replace("ma", "1");
-            }
-            if (!s.contains("woowoo")&&s.contains("woo")) {
-                s = s.replace("woo", "1");
-            }
-            if (s.contains("1")) {
-                s = s.replace("1", "");
-            }
-            if (s.equals("")) {
-                answer++;
+        for (int i = 0; i < food.length; i++) {
+            count = food[i]/2;
+            for (int j = 0; j < count; j++) {
+                answer += i;
             }
         }
+        answer += 0;
+        String[] split = answer.split("");
+        for (int i = split.length-2; i >= 0; i--) {
+            answer += split[i];
+        }
+
 
         return answer;
     }
 }
 
-
 public class Main {
     public static void main(String[] args) {
 
-        String[] box = {"ayaye", "uuu", "yeye", "yemawoo", "ayaayaa","ymae","wooyemawooye"};
+        int[] box = {1, 7, 1, 2};
 
         Solution solution = new Solution();
         System.out.println(solution.solution(box));
