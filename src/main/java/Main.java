@@ -1,31 +1,29 @@
-class Solution {
-    public String solution(int[] food) {
-        String answer = "";
-        int count = 0;
+class Solution{
+    public int solution(int n, int a, int b){
+        int answer = 1;
 
-        for (int i = 0; i < food.length; i++) {
-            count = food[i]/2;
-            for (int j = 0; j < count; j++) {
-                answer += i;
+        while (true) {
+            a = (a + 1) / 2;
+            b = (b + 1) / 2;
+            if (a == b) {
+                break;
             }
-        }
-        answer += 0;
-        String[] split = answer.split("");
-        for (int i = split.length-2; i >= 0; i--) {
-            answer += split[i];
-        }
+            answer++;
 
+        }
 
         return answer;
     }
 }
-
 public class Main {
     public static void main(String[] args) {
 
-        int[] box = {1, 7, 1, 2};
+        int n = 8;
+        int a = 4;
+        int b = 7;
+
 
         Solution solution = new Solution();
-        System.out.println(solution.solution(box));
+        System.out.println(solution.solution(n,a,b));
     }
 }
