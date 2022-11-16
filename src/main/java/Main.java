@@ -1,54 +1,43 @@
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Stack;
+import java.util.Map;
+
 class Solution {
-    public int solution(int[][] board, int[] moves) {
-        HashMap<Integer, Stack<Integer>> hashBox = new HashMap<>();
-        for (int i = 1; i <= board.length; i++) {
-            hashBox.put(i, new Stack<>());
+    public int solution(String[] want, int[] number, String[] discount) {
+        int answer = 0;
+        int numb = 0;
+
+        for (int i : number) {
+            numb += i;
+        }
+        Map<String, Integer> hashMap = new HashMap<>();
+        Map<String, Integer> resultMap = new HashMap<>();
+
+        for (int i = 0; i < want.length; i++) {
+            hashMap.put(want[i], number[i]);
         }
 
-        for (int i = board.length-1; i >= 0; i--) {
-            for (int j = 0; j < board[i].length; j++) {
-                if (board[i][j] != 0) {
-                    hashBox.get(j + 1).add(board[i][j]);
-                }
+        for (int i = 0; i <= discount.length - numb; i++) {
+            resultMap = new HashMap<>();
+            for (int j = i; j < i + 10; j++) {
+                resultMap.put(discount[j], resultMap.getOrDefault(discount[j], 0) + 1);
             }
-        }
-
-        List<Integer> result = new ArrayList<>();
-        for (int move : moves) {
-            if (!hashBox.get(move).isEmpty()) {
-                result.add(hashBox.get(move).pop());
-            }
-        }
-        int ans = 0;
-        while (true) {
-            int answer = 0;
-            for (int i = 1; i < result.size(); i++) {
-                if (result.get(i - 1) == result.get(i)) {
-                    result.remove(i+0);
-                    result.remove(i - 1);
-                    answer++;
-                    ans+=2;
-                }
-            }
-            if (answer == 0) {
-                break;
+            if (resultMap.equals(hashMap)) {
+                answer++;
             }
         }
 
-        return ans;
+        return answer;
     }
 }
 
 public class Main {
     public static void main(String[] args) {
 
-        int[][] board = {{0, 0, 0, 0, 0}, {0, 0, 1, 0, 3}, {0, 2, 5, 0, 1}, {4, 2, 4, 4, 2}, {3, 5, 1, 3, 1}};
-        int[] move = {1, 5, 3, 5, 1, 2, 1, 4};
+        String[] board = {"banana", "apple", "rice", "pork", "pot"};
+        int[] numb = {3, 2, 2, 2, 1};
+        String[] discount = {"chicken", "apple", "apple", "banana",
+                "rice", "apple", "pork", "banana", "pork", "rice", "pot", "banana", "apple", "banana"};
         Solution solution = new Solution();
-        System.out.println(solution.solution(board, move));
+        System.out.println(solution.solution(board,numb,discount));
     }
 }
