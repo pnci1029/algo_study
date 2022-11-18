@@ -7,6 +7,8 @@
 //
 //        int left = 2;
 //        int right = 3;
+//
+//
 //        for (int i = 2; i < n-1; i++) {
 //            answer = (left + right)% 1000000007;
 //            if (i % 2 == 0) {
