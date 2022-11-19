@@ -1,49 +1,83 @@
 class Solution {
-    public int solution(int n, int[] m) {
-        int buy = 0;
-        int total = 0;
-        if (n > 100000 ) {
-            return -1;
+    public String solution(String new_id) {
+        String answer = "";
+        String big = "^[A-Z]*$";
+        String small = "^[a-z0-9]*$";
+
+        String[] split = new_id.split("");
+        new_id = "";
+        for (String s : split) {
+            if (s.matches(big)) {
+                new_id += s.toLowerCase();
+            } else if (s.matches(small)) {
+                new_id += s;
+            } else if (s.equals("-") || s.equals("_") || s.equals(".")) {
+                new_id += s;
+            }
         }
-        if (n <= 0) {
-            return -1;
+        System.out.println("new_id = " + new_id);
+
+        while (true) {
+            int count = 0;
+
+            if (new_id.equals(".")) {
+                new_id = "a";
+                break;
+            }
+            String[] split1 = new_id.split("");
+
+            if (new_id.contains("..")) {
+                new_id = new_id.replace("..", ".");
+                count++;
+            }
+            if (split1[0].equals(".")) {
+                new_id = new_id.substring(1);
+            }
+
+            // if (split1[split1.length - 1].equals(".")) {
+            //     new_id = new_id.substring(0, new_id.length() - 1);
+            // }
+            if (count == 0) {
+                break;
+            }
         }
-        for (int i = 0; i < m.length; i++) {
-            int max = 0;
-            for (int j = i; j < m.length; j++) {
-                if (m[j] >= max) {
-                    max = m[j];
+
+        if (new_id.isEmpty()) {
+            new_id = "a";
+        }
+
+        if (new_id.length() >= 16) {
+            new_id = new_id.substring(0, 15);
+        }
+
+        if (String.valueOf(new_id.charAt(new_id.length() - 1)).equals(".")) {
+            new_id = new_id.substring(0, new_id.length() - 1);
+        }
+
+        if (new_id.length() <= 2) {
+            String word = String.valueOf(new_id.charAt(new_id.length() - 1));
+            while (true) {
+                if (new_id.length() == 3) {
+                    break;
+                } else {
+                    new_id += word;
                 }
             }
-            if (max > 1000) {
-                return -1;
-            }
-            if (m[i] < max) {
-                buy++;
-                total -= m[i];
-            } else {
-                total += m[i] * buy;
-                buy = 0;
-            }
         }
-
-
-        return total;
+        return new_id;
     }
 }
 
 public class Main {
     public static void main(String[] args) {
 
-//        int[] board = {1,5,10,2,4,3};
-//        int b = 6;
-//        int[] board = {1,2,3,4};
-//        int b = 4;
-//        int[] board = {1,99999};
-//        int b = 2;
-        int[] board = {2,5,2};
-        int b = 2;
+//        String board = "...!@BaT#*..y.abcdefghijklm.";
+//        String board = "c";
+//        String board = "=.=";
+//        String board = "z-+.^.";
+//        String board = "123_.def";
+        String board = "abcdefghijklmn.p";
         Solution solution = new Solution();
-        System.out.println(solution.solution(b,board));
+        System.out.println(solution.solution(board));
     }
 }
