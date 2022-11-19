@@ -1,79 +1,82 @@
 //class Solution {
 //    public String solution(String new_id) {
-//        StringBuilder answer = new StringBuilder();
+//        String answer = "";
+//        String big = "^[A-Z]*$";
+//        String small = "^[a-z0-9]*$";
+//
 //        String[] split = new_id.split("");
-//
-//        String small = "^[a-z]*$";
-//
-//        if (new_id.isEmpty()) {
-//            new_id += "a";
-//        }
-//
-//
-//        for (int i = 0; i < split.length; i++) {
-//            split[i] = split[i].toLowerCase();
-//            if (!(split[i].matches(small) || split[i].equals("-") || split[i].equals("_") || split[i].equals("."))) {
-//                split[i] = "";
-//            }else {
-//                answer.append(split[i]);
+//        new_id = "";
+//        for (String s : split) {
+//            if (s.matches(big)) {
+//                new_id += s.toLowerCase();
+//            } else if (s.matches(small)) {
+//                new_id += s;
+//            } else if (s.equals("-") || s.equals("_") || s.equals(".")) {
+//                new_id += s;
 //            }
-//
 //        }
-//        new_id = answer.toString();
+//        System.out.println("new_id = " + new_id);
+//
 //        while (true) {
 //            int count = 0;
+//
+//            if (new_id.equals(".")) {
+//                new_id = "a";
+//                break;
+//            }
+//            String[] split1 = new_id.split("");
+//
 //            if (new_id.contains("..")) {
 //                new_id = new_id.replace("..", ".");
 //                count++;
 //            }
+//            if (split1[0].equals(".")) {
+//                new_id = new_id.substring(1);
+//            }
+//
+//            // if (split1[split1.length - 1].equals(".")) {
+//            //     new_id = new_id.substring(0, new_id.length() - 1);
+//            // }
 //            if (count == 0) {
 //                break;
 //            }
 //        }
-//        String[] spl = new_id.split("");
-//        answer = new StringBuilder();
 //
-//        for (String s : spl) {
-//            answer.append(s);
-//        }
-//        if (answer.length() >= 16) {
-//            answer = new StringBuilder(answer.substring(0, 15));
+//        if (new_id.isEmpty()) {
+//            new_id = "a";
 //        }
 //
-//        if (spl[0].equals( ".")) {
-//            spl[0] = spl[0].replace(".", "");
+//        if (new_id.length() >= 16) {
+//            new_id = new_id.substring(0, 15);
 //        }
-//        if (spl[spl.length-1].equals(".")) {
-//            spl[spl.length-1] = spl[spl.length-1].replace(".", "");
+//
+//        if (String.valueOf(new_id.charAt(new_id.length() - 1)).equals(".")) {
+//            new_id = new_id.substring(0, new_id.length() - 1);
 //        }
-//        System.out.println("answer = " + answer);
 //
-//
-//
-//        return answer.toString();
-//    }
-//
-//    public String split(String[] spl) {
-//        String answer = "";
-//        if (spl[0].equals( ".")) {
-//            spl[0] = spl[0].replace(".", "");
+//        if (new_id.length() <= 2) {
+//            String word = String.valueOf(new_id.charAt(new_id.length() - 1));
+//            while (true) {
+//                if (new_id.length() == 3) {
+//                    break;
+//                } else {
+//                    new_id += word;
+//                }
+//            }
 //        }
-//        if (spl[spl.length-1].equals(".")) {
-//            spl[spl.length-1] = spl[spl.length-1].replace(".", "");
-//        }
-//        for (String s : spl) {
-//            answer += s;
-//        }
-//        return answer;
-//
+//        return new_id;
 //    }
 //}
 //
 //public class Main {
 //    public static void main(String[] args) {
 //
-//        String board = "...!@BaT#*..y.abcdefghijklm.";
+////        String board = "...!@BaT#*..y.abcdefghijklm.";
 ////        String board = "c";
+////        String board = "=.=";
+////        String board = "z-+.^.";
+////        String board = "123_.def";
+//        String board = "abcdefghijklmn.p";
 //        Solution solution = new Solution();
 //        System.out.println(solution.solution(board));
 //    }
