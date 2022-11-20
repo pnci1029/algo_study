@@ -1,83 +1,54 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
 class Solution {
-    public String solution(String new_id) {
-        String answer = "";
-        String big = "^[A-Z]*$";
-        String small = "^[a-z0-9]*$";
+    public int[] solution(int n, int m) {
+        int[] answer =  new int[2];
+        int max = Math.max(n, m);
+        int min = Math.min(n, m);
 
-        String[] split = new_id.split("");
-        new_id = "";
-        for (String s : split) {
-            if (s.matches(big)) {
-                new_id += s.toLowerCase();
-            } else if (s.matches(small)) {
-                new_id += s;
-            } else if (s.equals("-") || s.equals("_") || s.equals(".")) {
-                new_id += s;
-            }
-        }
-        System.out.println("new_id = " + new_id);
-
-        while (true) {
-            int count = 0;
-
-            if (new_id.equals(".")) {
-                new_id = "a";
-                break;
-            }
-            String[] split1 = new_id.split("");
-
-            if (new_id.contains("..")) {
-                new_id = new_id.replace("..", ".");
-                count++;
-            }
-            if (split1[0].equals(".")) {
-                new_id = new_id.substring(1);
-            }
-
-            // if (split1[split1.length - 1].equals(".")) {
-            //     new_id = new_id.substring(0, new_id.length() - 1);
-            // }
-            if (count == 0) {
-                break;
+        List<Integer> maxBox = new ArrayList<>();
+        List<Integer> minBox = new ArrayList<>();
+        for (int i = 1; i <= max; i++) {
+            if (max % i == 0) {
+                maxBox.add(i);
             }
         }
 
-        if (new_id.isEmpty()) {
-            new_id = "a";
+        for (int i = 1; i <= min; i++) {
+            if (min % i == 0) {
+                minBox.add(i);
+            }
         }
-
-        if (new_id.length() >= 16) {
-            new_id = new_id.substring(0, 15);
-        }
-
-        if (String.valueOf(new_id.charAt(new_id.length() - 1)).equals(".")) {
-            new_id = new_id.substring(0, new_id.length() - 1);
-        }
-
-        if (new_id.length() <= 2) {
-            String word = String.valueOf(new_id.charAt(new_id.length() - 1));
-            while (true) {
-                if (new_id.length() == 3) {
+        int count = 0;
+        for (int i = minBox.size() - 1; i >= 0; i--) {
+            int numb = 0;
+            for (int j = maxBox.size() - 1; j >= 0; j--) {
+                if (minBox.get(i).equals(maxBox.get(j))) {
+                    count = minBox.get(i);
+                    numb++;
                     break;
-                } else {
-                    new_id += word;
                 }
             }
+            if (numb != 0) {
+                break;
+            }
         }
-        return new_id;
+        answer[0] = count;
+        answer[1] = max * min / count;
+
+
+        return answer;
     }
 }
 
 public class Main {
     public static void main(String[] args) {
 
-//        String board = "...!@BaT#*..y.abcdefghijklm.";
-//        String board = "c";
-//        String board = "=.=";
-//        String board = "z-+.^.";
-//        String board = "123_.def";
-        String board = "abcdefghijklmn.p";
+        int a= 3;
+        int b = 12;
         Solution solution = new Solution();
-        System.out.println(solution.solution(board));
+        System.out.println(solution.solution(a,b));
     }
 }
