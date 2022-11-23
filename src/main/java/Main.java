@@ -1,48 +1,40 @@
-import java.util.*;
-
-class Solution {
-    public int solution(int cacheSize, String[] cities) {
-        int answer = 0;
-        List<String> box = new ArrayList<>();
-
-        if (cacheSize == 0) {
-            for (int i = 0; i < cities.length; i++) {
-                answer += 5;
-            }
-            return answer;
-        }
-
-        for (int i = 0; i < cities.length; i++) {
-            cities[i] = cities[i].toLowerCase();
-            answer += 5;
-            for (int j = 0; j < box.size(); j++) {
-                if (box.get(j).equals(cities[i])) {
-                    box.remove(j);
-                    answer -= 4;
-                    break;
-                }
-
-            }
-            if (box.size() >= cacheSize) {
-
-                box.remove(0);
-            }
-            box.add(cities[i]);
-
-        }
-
-
-        return answer;
-    }
-}
-public class Main {
-    public static void main(String[] args) {
-        int a =3;
-//        String[]b = {"Jeju", "Pangyo", "Seoul", "NewYork", "LA", "Jeju", "Pangyo", "Seoul", "NewYork", "LA"};
-        String[]b = {"Jeju", "Pangyo", "Seoul", "Jeju", "Pangyo", "Seoul", "Jeju", "Pangyo", "Seoul"};
-
-
-        Solution solution = new Solution();
-        System.out.println(solution.solution(a,b));
-    }
-}
+//import java.util.*;
+//
+//class Solution {
+//    public static Scanner scanner = new Scanner(System.in);
+//    public List<Integer> solution(int a, int[] speeds) {
+//
+//        scanner.nextInt();
+//
+//
+//        Map<Integer, Integer> box = new HashMap<>();
+//
+//        List<Integer> result = new ArrayList<>();
+//        for (int speed : speeds) {
+//            box.put(speed, box.getOrDefault(speed, 0) + 1);
+//        }
+//
+//        for (int speed : speeds) {
+//            if (box.get(speed) == 1) {
+//                result.add(speed);
+//            }
+//        }
+//        Collections.sort(result);
+//
+//
+//        return result;
+//    }
+//}
+//
+//public class Main {
+//    public static void main(String[] args) {
+//
+//        int a = 5;
+//        int[] b = {4, 3, 3, 2, 6};
+////        int[] b = {1,2,3,4,5,4,3,2,1,2};
+//
+//
+//        Solution solution = new Solution();
+//        System.out.println(solution.solution(a, b));
+//    }
+//}
