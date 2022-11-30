@@ -1,60 +1,52 @@
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 class Solution {
-    public int solution(String skill, String[] skill_trees) {
+    public int solution(int[] array) {
         int answer = 0;
+        Map<Integer,Integer> hashmap = new HashMap<>();
 
-        List<String> box = new ArrayList<>();
+        for (int i : array) {
+            hashmap.put(i, hashmap.getOrDefault(i, 0) + 1);
+        }
+        System.out.println("hashmap = " + hashmap);
 
-        char[] chars = skill.toCharArray();
-        for (int i = 0; i < chars.length; i++) {
-            box.add(String.valueOf(chars[i]));
+        List<Integer> list = new ArrayList<>();
+
+        int count = 0;
+        for (Integer value : hashmap.values()) {
+            if (value > count) {
+                count = value;
+            }
+        }
+        System.out.println("count = " + count);
+
+        int numb = 0;
+        for (Integer integer : hashmap.keySet()) {
+            if (count == hashmap.get(integer)) {
+                numb++;
+                list.add(integer);
+            }
         }
 
-        for (String skill_tree : skill_trees) {
-            String[] split = skill_tree.split("");
-
-            String result = "";
-            String compare = "";
-
-            for (int i = 0; i < split.length; i++) {
-                for (String s : box) {
-                    if (split[i].equals(s)) {
-                        result += split[i];
-                        break;
-                    }
-
-                }
-            }
-            if (result.length() != 0) {
-                for (int i = 0; i < result.length(); i++) {
-                    compare += box.get(i);
-                }
-            }
-            if (result.equals(compare)) {
-
-                answer++;
-            }
-//            System.out.println("compare = " + compare);
-//            System.out.println("result = " + result);
+        if (numb>1) {
+            return -1;
+        } else {
+            return list.get(0);
         }
-        return answer;
+
     }
 }
 
-
 public class Main {
     public static void main(String[] args) {
-        String a ="CBD";
-        String[] b = {"BACDE", "CBADF", "AECB", "BDA"};
 
-//        String a = "CBD";
-//        String[] b = {"CXF", "ASF", "BDF", "CEFD"};
+        int[] a = {2};
 
 
         Solution solution = new Solution();
-        System.out.println(solution.solution(a,b));
+        System.out.println(solution.solution(a));
     }
 }
