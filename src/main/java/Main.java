@@ -2,87 +2,82 @@ import java.util.ArrayList;
 import java.util.List;
 
 class Solution {
-    public int[] solution(int denum1, int num1, int denum2, int num2) {
-        int[] answer = new int[2];
+    public List<Integer> solution(int N, int[] stages) {
 
-        int max = Math.max(num1, num2);
-        int min = Math.min(num1, num2);
         List<Integer> box = new ArrayList<>();
-        int a = max;
-        int b = min;
+        List<Double> stageFailureRate = new ArrayList<>();
+        List<Integer> zeroCollect = new ArrayList<>();
+        for (int stage : stages) {
+            box.add(stage);
+        }
 
-        if (min != 1) {
-            while (true) {
-                int count = 1;
-                for (int i = 2; i <= b; i++) {
-                    if (a % i == 0 && b % i == 0) {
-                        box.add(i);
-                        count = i;
-                        break;
+        int stageNumb = 1;
+        double totalCount =  stages.length;
+        while (true) {
+
+            int failureRate = 0;
+            for (int i = 0; i < box.size(); i++) {
+                if (box.get(i) == stageNumb) {
+                    failureRate++;
+                }
+            }
+
+            if (totalCount != 0) {
+                stageFailureRate.add(failureRate / totalCount);
+
+            } else {
+//                zeroCollect.add(i + 1);
+                stageFailureRate.add(0.0);
+            }
+            System.out.println("stageFailureRate = " + stageFailureRate);
+            totalCount -= failureRate;
+
+            stageNumb++;
+            if (stageNumb > N) {
+                break;
+            }
+        }
+        box.clear();
+        int compare = stageFailureRate.size()-1;
+        while (true) {
+            for (int i = stageFailureRate.size()-2; i >= 0; i--) {
+                if (stageFailureRate.get(compare) <= stageFailureRate.get(i)) {
+                    compare = i;
+                }
+            }
+            box.add(compare+1);
+
+            stageFailureRate.set(compare,-1.0);
+
+            if (box.size() == stageFailureRate.size()-1) {
+                for (int i = 0; i < stageFailureRate.size(); i++) {
+                    if (stageFailureRate.get(i) != -1.0) {
+                        box.add(i + 1);
                     }
                 }
-                a /= count;
-                b /= count;
 
-                if (count == 1) {
-                    break;
-                }
+                break;
             }
         }
 
 
-        int sum = 1;
-        for (Integer integer : box) {
-            sum *= integer;
-        }
-
-        if (sum != 0) {
-            answer[1] = sum * a * b;
-        } else {
-            answer[1] = a * b;
-        }
-
-
-        if (num1 == max) {
-            answer[0] = (answer[1] / max * denum1) + (answer[1] / min * denum2);
-        } else {
-            answer[0] = (answer[1] / max * denum2) + (answer[1] / min * denum1);
-
-        }
-        max = Math.max(answer[0], answer[1]);
-        min = Math.min(answer[0], answer[1]);
-
-        sum=0;
-        for (int i = 2; i <= min; i++) {
-            if (max % i == 0 && min % i == 0) {
-                sum = i;
-            }
-        }
-
-
-        if (sum >= 2) {
-            answer[0]/=sum;
-            answer[1]/=sum;
-        }
-
-        return answer;
+        return box;
     }
 }
 
 public class Main {
     public static void main(String[] args) {
 
-        int d1 = 1;
-        int n1 = 1;
-        int d2 = 1;
-        int n2 = 1;
+//        int b = 5;
+//        int[] a = {2, 1, 2, 6, 2, 4, 3, 3};
 
-//        int d1 = 1;
-//        int n1 = 27;
-//        int d2 = 1;
-//        int n2 = 54;
+        int b = 4;
+        int[] a = {4,4,4,4};
+
+//        int b = 5;
+//        int[] a = {3,3,3,3};
 
         Solution solution = new Solution();
-        System.out.println(solution.solution(d1, n1, d2, n2));
+        System.out.println(solution.solution(b, a));
     }
 }
