@@ -1,50 +1,51 @@
 import java.util.*;
 
 class Solution {
-    public List<Integer> solution(int num, int total) {
+    static int[] numbBox;
+    static int[] box =new int[3];
+    static int answerCount = 0;
+    static boolean[] checkBox;
 
-        List<Integer> box;
 
-        int startNumb = total;
-        if (total == 0) {
-            startNumb = 50;
+    public int solution(int[] number) {
+        int N = number.length;
+        int answer = 0;
+        checkBox = new boolean[N];
+        numbBox = number;
+        DFS(0,0);
+
+
+        return answerCount;
+    }
+
+    public void DFS(int idx, int depth) {
+        if (depth == 3) {
+            int answer = 0;
+            for (int i = 0; i < 3; i++) {
+                answer += box[i];
+            }
+            if (answer == 0) {
+                answerCount++;
+            }
+            return;
         }
-        while (true) {
-            box = new ArrayList<>();
-
-            int result = 0;
-
-            for (int i = startNumb; ; i--) {
-                result += i;
-                box.add(i);
-                if (box.size() == num) {
-                    break;
-                }
+        for (int i = idx; i < numbBox.length; i++) {
+            if (!checkBox[i]) {
+                box[depth] = numbBox[i];
+                checkBox[i] = true;
+                DFS(i + 1, depth + 1);
+                checkBox[i] = false;
             }
-            result = 0;
-            startNumb--;
-            for (Integer integer : box) {
-                result += integer;
-            }
-            if (result == total) {
-                break;
-            }
-
 
         }
-        Collections.reverse(box);
-
-
-        return box;
     }
 }
 
 public class Main {
     public static void main(String[] args) {
-
-        int b = 3;
-        int a = 0;
+        int[] number = {-2, 3, 0, 2, -5};
         Solution solution = new Solution();
-        System.out.println(solution.solution(b, a));
+        System.out.println(solution.solution(number));
+
     }
 }
