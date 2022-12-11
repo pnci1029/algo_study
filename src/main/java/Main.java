@@ -1,56 +1,36 @@
-import java.util.*;
+import java.util.Stack;
 
 class Solution {
-    public List<Integer> solution(String s) {
-        int[] answer = {};
+    public int solution(int[] order) {
 
-        List<String> box = new ArrayList<>();
+        Stack<Integer> box = new Stack<>();
+        int numb = 0;
 
-        System.out.println(s);
-        s = s.substring(1, s.length() - 2);
-        s = s.replace("{", "");
-        String[] split = s.split("},");
-
-        for (String s1 : split) {
-            s1 = s1.replace("{", "");
-            s1 = s1.replace(",", "");
-            box.add(s1);
-        }
-
-        System.out.println(box);
-        List<Integer> result = new ArrayList<>();
-
-        Arrays.sort(split, new Comparator<String>() {
-            public int compare(String o1, String o2) {
-
-                return Integer.compare(o1.length(), o2.length());
-            }
-        });
-        System.out.println("split = " + Arrays.toString(split));
-
-        for (int i = 0; i < split.length; i++) {
-            String[] splits = split[i].split(",");
-            for (int j = 0; j < splits.length; j++) {
-                int a = Integer.parseInt(splits[j]);
-
-                if (!result.contains(a)) {
-                    result.add(a);
+        for (int j = 1; j <= order.length; j++) {
+            box.push(j);
+            for (int i = numb; i < order.length; i++) {
+                if (!box.isEmpty()) {
+                    if (box.peek() == order[i]) {
+                        box.pop();
+                        numb++;
+                    } else {
+                        break;
+                    }
+                } else {
+                    break;
                 }
             }
         }
-        System.out.println(result);
 
 
-        return result;
+        return numb;
     }
 }
 
 public class Main {
     public static void main(String[] args) {
-
-
-//        String a = "{{2},{2,1},{2,1,3},{2,1,3,4}}";
-        String a = "{{1,2,3},{2,1},{1,2,4,3},{2}}";
+//        int[] a = {5,4,3,2,1};
+        int[] a = {2, 1, 4, 3, 6, 5, 8, 7, 10, 9};
         Solution solution = new Solution();
         System.out.println(solution.solution(a));
 
