@@ -1,39 +1,26 @@
-import java.util.*;
+import java.util.Arrays;
 
 class Solution {
-    public String solution(int[] numbers) {
-        String answer = "";
+    public int[] solution(int n, long k) {
+        int[] box = new int[n];
+        int[] answer = new int[n];
 
-        String[] box = new String[numbers.length];
-
-        for (int i = 0; i < numbers.length; i++) {
-            box[i] = String.valueOf(numbers[i]);
+        for (int i = 1; i <= n; i++) {
+            box[n - i] = i;
         }
 
-        Arrays.sort(box, new Comparator<String>() {
-            @Override
-            public int compare(String o1, String o2) {
-                return (o2 + o1).compareTo(o1 + o2);
-            }
-        });
 
-        if (box[0].equals("0")) {
-            return "0";
-        }
-        for (String number : box) {
-            answer += number;
-        }
 
-        return answer;
+
+        return box;
     }
 }
-
 public class Main {
     public static void main(String[] args) {
-//        int[] a = {100, 900, 3, 30, 152, 161, 34, 51, 9, 95, 11, 991, 999, 151};
-        int [] a = {3, 30, 34, 5, 9};
+        int orders = 3;
+        int a = 5;
         Solution solution = new Solution();
-        System.out.println(solution.solution(a));
+        System.out.println(solution.solution(orders,a));
 
     }
 }
