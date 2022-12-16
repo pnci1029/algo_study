@@ -1,62 +1,44 @@
-import java.util.*;
+import java.util.ArrayList;
 
 class Solution {
-    public int[] solution(String[] info, String[] query) {
-        int[] answer = new int[info.length];
+    public long solution(int w, int h) {
+        long answer = 1;
 
-        List<String> infos = new ArrayList<>();
+        long result =0;
+        int gong = 0;
 
-        Map<Integer, String[]> box = new HashMap<>();
-        Map<Integer, String[]> compare = new HashMap<>();
-
-        for (int i = 0; i < info.length; i++) {
-            String[] s = info[i].split(" ");
-            box.put(i, s);
+        int width = Math.max(w, h);
+        int height = Math.min(w, h);
+        if (width == 1 || height == 1) {
+            answer = 123;
         }
 
-        for (int i = 0; i < query.length; i++) {
-            String[] s = query[i].split(" ");
-            compare.put(i, s);
-        }
 
-//        for (String[] value : box.values()) {
-//            System.out.println(Arrays.toString(value));
-//        }
-//        System.out.println("ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ");
-//        for (String[] value : compare.values()) {
-//            System.out.println(Arrays.toString(value));
-//        }
+        for (int i = 1; i <= height; i++) {
+            if (width == height) {
+                gong = i;
+                answer = (long) width * height - gong;
+            }
+            else if (width % i == 0 && height % i == 0) {
 
-        for (int i = 0; i < answer.length; i++) {
-            String[] compares = compare.get(i);
-
-            for (int j = 0; j < box.size(); j++) {
-                String[] boxes = box.get(j);
-                if (boxes[0].equals(compares[0]) || compares[0].equals("-")) {
-                    if (boxes[1].equals(compares[2]) || compares[2].equals("-")) {
-                        if (boxes[2].equals(compares[4]) || compares[4].equals("-")) {
-                            if (boxes[3].equals(compares[6]) || compares[6].equals("-")) {
-                                if (Integer.parseInt(boxes[4]) >= Integer.parseInt(compares[7])) {
-                                    answer[i]++;
-                                }
-                            }
-                        }
-                    }
-                }
-
+                gong = i;
             }
         }
-
-
+        int first =width/gong;
+        int sec = height/gong;
+        if (width != height) {
+            answer = (long) width * height - (long) gong *(first+sec-1);
+        }
+        System.out.println(gong);
+        System.out.println(answer);
 
         return answer;
     }
 }
-
 public class Main {
     public static void main(String[] args) {
-        String[] a = {"java backend junior pizza 150", "python frontend senior chicken 210", "python frontend senior chicken 150", "cpp backend senior pizza 260", "java backend junior chicken 80", "python backend senior chicken 50"};
-        String[] b = {"java and backend and junior and pizza 100", "python and frontend and senior and chicken 200", "cpp and - and senior and pizza 250", "- and backend and senior and - 150", "- and - and - and chicken 100", "- and - and - and - 150"};
+        int a = 8;
+        int b = 12;
         Solution solution = new Solution();
         System.out.println(solution.solution(a, b));
 
