@@ -1,44 +1,43 @@
-import java.util.ArrayList;
+import java.util.*;
 
 class Solution {
-    public long solution(int w, int h) {
-        long answer = 1;
+    public int[] solution(String[] info, String[] query) {
+        int[] answer = new int[info.length];
 
-        long result =0;
-        int gong = 0;
-
-        int width = Math.max(w, h);
-        int height = Math.min(w, h);
-        if (width == 1 || height == 1) {
-            answer = 123;
+        for (int i = 0; i < query.length; i++) {
+            query[i] = query[i].replaceAll(" and", "");
         }
 
+//        for (String s : info) {
+//            System.out.println("info = " + s);
+//        }
+//        System.out.println("ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ");
+//        for (String s : query) {
+//            System.out.println("query = " + s);
+//        }
 
-        for (int i = 1; i <= height; i++) {
-            if (width == height) {
-                gong = i;
-                answer = (long) width * height - gong;
+        for (int i = 0; i < query.length; i++) {
+            String[] querys = query[i].split(" ");
+            for (int j = 0; j < info.length; j++) {
+                String[] infos = info[j].split(" ");
+                if (Integer.parseInt(infos[3]) >= Integer.parseInt(querys[3])) {
+
+                } else {
+                    break;
+                }
             }
-            else if (width % i == 0 && height % i == 0) {
+        }
 
-                gong = i;
-            }
-        }
-        int first =width/gong;
-        int sec = height/gong;
-        if (width != height) {
-            answer = (long) width * height - (long) gong *(first+sec-1);
-        }
-        System.out.println(gong);
-        System.out.println(answer);
+        System.out.println(Arrays.toString(answer));
 
         return answer;
     }
 }
+
 public class Main {
     public static void main(String[] args) {
-        int a = 8;
-        int b = 12;
+        String[] a = {"java backend junior pizza 150", "python frontend senior chicken 210", "python frontend senior chicken 150", "cpp backend senior pizza 260", "java backend junior chicken 80", "python backend senior chicken 50"};
+        String[] b = {"java and backend and junior and pizza 100", "python and frontend and senior and chicken 200", "cpp and - and senior and pizza 250", "- and backend and senior and - 150", "- and - and - and chicken 100", "- and - and - and - 150"};
         Solution solution = new Solution();
         System.out.println(solution.solution(a, b));
 
