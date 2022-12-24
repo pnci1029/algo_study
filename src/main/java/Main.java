@@ -1,31 +1,19 @@
 import java.util.*;
 
 class Solution {
-    public int solution(int[][] lines) {
-        int answer = 0;
-        int[] box = new int[201];
-        Arrays.fill(box, 0);
+    public long solution(int[] queue1, int[] queue2) {
 
-        if (lines[1][0] >= lines[0][1] && lines[2][0] >= lines[1][1]) {
-            return 0;
-        }
-        for (int i = 0; i < lines.length; i++) {
-            int left = lines[i][0] + 100;
-            int right = lines[i][1] + 100;
-            for (int j = left; j < right; j++) {
-                box[j]++;
-            }
+        Queue<Integer> queue = new LinkedList<>();
+        Stack<Integer> stack = new Stack<>();
+//        queue.offer(10);
+//        stack.push(10);
+//        stack.remove(0);
+        queue.poll();
 
-        }
-        for (int i : box) {
-            if (i >= 2) {
-                answer++;
-            }
-        }
+        System.out.println("stack = " + stack);
+        System.out.println("queue = " + queue);
 
-//        System.out.println(Arrays.toString(box));
-
-        return answer;
+        return 0;
     }
 }
 
@@ -33,13 +21,17 @@ class Solution {
 public class Main {
     public static void main(String[] args) {
 
-//        int[][] a = {{0,1},{2,5},{3,9}};
-//        int[][] a = {{-1,1},{1,3},{3,9}};
-        int[][] a = {{0, 5}, {3, 9}, {1, 10}};
-//        int[][] a = {{-1, 0}, {0, 1}, {1, 2}};
+//        int[] a = {3, 2, 7, 2};
+//        int[] b = {4, 6, 5, 1};
 
+//        int[] a = {1, 2, 4};
+//        int[] b = {3,2,4};
+//        int[] a = {1, 1, 1, 1, 1, 1, 1, 1, 1, 10};
+//        int[] b = {1, 1, 1, 1, 1, 1, 1, 1, 1, 1};
+        int[] a = {1, 1, 1, 9, 1};
+        int[] b = {1, 1, 1, 1, 1};
         Solution solution = new Solution();
-        System.out.println(solution.solution(a));
+        System.out.println(solution.solution(a,b));
 
     }
 }
