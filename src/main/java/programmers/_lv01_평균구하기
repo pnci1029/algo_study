@@ -1,0 +1,10 @@
+class Solution {
+    public double solution(int[] arr) {
+        double answer = 0;
+        for(Integer idx : arr){
+            answer+= idx;
+        }
+        answer = answer/arr.length;
+        return answer;
+    }
+}
