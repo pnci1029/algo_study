@@ -1,0 +1,15 @@
+import java.util.*;
+
+public class Solution {
+    public int solution(int n) {
+        int answer = 0;
+
+        int idx = n;
+        while(idx>0){
+            answer += idx%10;
+            idx /=10;
+        }
+        System.out.println(answer);
+        return answer;
+    }
+}
