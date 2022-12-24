@@ -1,19 +1,64 @@
-import java.util.*;
-
+import java.util.ArrayList;
+import java.util.List;
 class Solution {
-    public long solution(int[] queue1, int[] queue2) {
+    public List<Long> solution(long[] numbers) {
+        List<Long> result = new ArrayList<>();
 
-        Queue<Integer> queue = new LinkedList<>();
-        Stack<Integer> stack = new Stack<>();
-//        queue.offer(10);
-//        stack.push(10);
-//        stack.remove(0);
-        queue.poll();
+        for (Long value : numbers) {
+            String target = Long.toBinaryString(value);
 
-        System.out.println("stack = " + stack);
-        System.out.println("queue = " + queue);
+            int count = 0;
+            String answer = "";
+            if (target.length() >= 2) {
+                String numb = target.substring(target.length() - 2);
+                if (numb.equals("00") || numb.equals("10")) {
+                    result.add(value + 1);
+                } else if (numb.equals("01")) {
+                    result.add(value + 1);
+                } else {
+                    String[] split = target.split("");
+                    int oneCount = split.length - 1;
+                    while (true) {
+                        if (split[oneCount].equals("1")) {
+                            count++;
+                        } else {
+                            break;
+                        }
+                        oneCount--;
+                        if (count >= split.length) {
+                            break;
+                        }
+                    }
 
-        return 0;
+                    if (count == split.length) {
+                        answer = "10";
+                        count--;
+                        while (count > 0) {
+                            answer += "1";
+                            count--;
+                        }
+                        result.add(Long.parseLong(answer, 2));
+                        /**
+                         * 1011 -> 1101
+                         * 10011 -> 10101
+                         */
+                    } else {
+                        answer += target.substring(0, split.length - count - 1) + "10";
+                        count--;
+                        while (count > 0) {
+                            answer += "1";
+                            count--;
+                        }
+
+                        result.add(Long.parseLong(answer, 2));
+                    }
+                }
+            } else {
+                result.add(value + 1);
+            }
+        }
+
+        return result;
     }
 }
 
@@ -21,17 +66,10 @@ class Solution {
 public class Main {
     public static void main(String[] args) {
 
-//        int[] a = {3, 2, 7, 2};
-//        int[] b = {4, 6, 5, 1};
-
-//        int[] a = {1, 2, 4};
-//        int[] b = {3,2,4};
-//        int[] a = {1, 1, 1, 1, 1, 1, 1, 1, 1, 10};
-//        int[] b = {1, 1, 1, 1, 1, 1, 1, 1, 1, 1};
-        int[] a = {1, 1, 1, 9, 1};
-        int[] b = {1, 1, 1, 1, 1};
+//        long[] a = {2, 1015};
+        long[] a = {1001, 337, 0, 1, 333, 673, 343, 221, 898, 997, 121, 1015, 665, 779, 891, 421, 222, 256, 512, 128, 100};
         Solution solution = new Solution();
-        System.out.println(solution.solution(a,b));
+        System.out.println(solution.solution(a));
 
     }
 }
