@@ -3,20 +3,20 @@ package com.example.tdd_prac;
 import java.util.*;
 
 /**
- 2 7
- 3 5
+  2 7
+  3 5
 
- 1 16
+  1 16
  1 24
 
  1 4
- 1 8
+  1 8
 
- 2 4
- 1 3
+  2 4
+  1 3
 
-4 4
- 4 4
+  4 4
+  4 4
  */
 
 public class BackJoon {
@@ -38,25 +38,53 @@ public class BackJoon {
                 break;
             }
         }
-        System.out.println("divide = " + divide);
-        if (divide == 1) {
-            System.out.println(a * d + c * b);
-            System.out.println(b * d);
+//        if (divide == 1) {
+//            System.out.println(a * d + c * b);
+//            System.out.println(b * d);
+//        } else {
+//            System.out.println("divide = " + divide);
+////            System.out.println(targetA);
+////            System.out.println(targetB);
+//
+//        }
+        int targetA = b / divide;
+        int targetB = d / divide;
+        int upper = targetB * a + targetA * c;
+        int lower = b * targetB;
+
+        int maxA = Math.max(upper, lower);
+        int minA = Math.min(upper, lower);
+        boolean isHead;
+
+        if (maxA == upper) {
+            isHead = true;
         } else {
-            System.out.println("divide = " + divide);
-            int targetA = b / divide;
-            int targetB = d / divide;
-            int upper = targetB * a + targetA * c;
-            int lower = b * targetB;
-
-            
-
-            System.out.println(upper);
-            System.out.println(lower);
-//            System.out.println(targetA);
-//            System.out.println(targetB);
-
+            isHead = false;
         }
+
+//        System.out.println("maxA = " + maxA);
+//        System.out.println("minA = " + minA);
+        int result = 0;
+        for (int i = minA; i >= 1; i--) {
+            if (maxA % i == 0 && minA % i == 0) {
+                result = i;
+                break;
+            }
+        }
+        if (result != 0) {
+            maxA /= result;
+            minA /= result;
+        }
+//        System.out.println("maxA = " + maxA);
+//        System.out.println("minA = " + minA);
+        if (isHead) {
+            System.out.println(maxA);
+            System.out.println(minA);
+        } else {
+            System.out.println(minA);
+            System.out.println(maxA);
+        }
+
 
     }
 }
