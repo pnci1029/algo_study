@@ -16,30 +16,29 @@ public class Solve {
         int length = scanner.nextInt();
 
         for (int i = 0; i < length; i++) {
-            long first = scanner.nextInt();
-            long second = scanner.nextInt();
+            int first = scanner.nextInt();
+            int second = scanner.nextInt();
 
-            long max = Math.max(first, second);
-            long min = Math.min(first, second);
-
-            long parent = max;
-            long child = min;
-            while (true) {
-                if (min <= 1) {
-                    break;
-                }
-                parent *= max - 1;
-                child *= min - 1;
-                max--;
-                min--;
-            }
-
-
-            System.out.println(parent/child);
-
+            System.out.println(nCrCalculate(first, second));
         }
 
+    }
 
+    // nCr = n!/r!(n - r)!                  5       2
+    private static long nCrCalculate(int first, int second) {
+        if ( first == second) {
+            return 1;
+        }
 
+        /**
+         * 5! / 2! * 3!
+         */
+
+        long result = 1;
+        for (int i = 1; i <= first; i++) {
+            result *= second--;
+            result /= i;
+        }
+        return result;
     }
 }
