@@ -4,6 +4,8 @@ import java.util.Scanner;
 /**
  55-50+40
  10+20+30+40
+
+ 55-50+40-30
  */
 public class Main {
     public static void main(String[] args) {
@@ -12,18 +14,28 @@ public class Main {
 
         String value = scanner.next();
 
-        String[] type = {"+", "-"};
 
         if (value.contains("-")) {
-            String[] split = value.split("-");
-            String[] positive = split[0].split("\\+");
-            String[] negative = split[1].split("\\+");
+            String[] minusBox = value.split("-");
+            int result = 0;
 
-            int positiveResult = Arrays.stream(positive).mapToInt(Integer::parseInt).sum();
-            int negativeResult = Arrays.stream(negative).mapToInt(Integer::parseInt).sum();
+            String[] first = minusBox[0].split("\\+");
+            for (String s : first) {
+                result += Integer.parseInt(s);
+            }
+
+            for (int i = 1; i < minusBox.length; i++) {
+                String[] split = minusBox[i].split("\\+");
+                int minusValue = 0;
+                for (String s : split) {
+                    minusValue += Integer.parseInt(s);
+                }
+
+                result -= minusValue;
+            }
+                System.out.println(result);
 
 
-            System.out.println(positiveResult - negativeResult);
         } else {
             String[] split = value.split("\\+");
             System.out.println(Arrays.stream(split).mapToInt(Integer::parseInt).sum());
