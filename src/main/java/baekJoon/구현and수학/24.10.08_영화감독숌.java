@@ -1,5 +1,3 @@
-
-import java.util.Arrays;
 import java.util.Scanner;
 
 /**
@@ -13,32 +11,19 @@ public class Solve {
         int value = scanner.nextInt();
 
 
-        int result = 666;
+        String result = "666";
 
 
         while (true) {
-            String[] split = String.valueOf(result).split("");
-            int sixCount = 0;
-            for (String s : split) {
-                if (s.equals("6")) {
-                    sixCount++;
-                }
-                if (sixCount >= 3) {
-                    value--;
-                    break;
-                }
+            if (result.contains("666")) {
+                value--;
             }
-
-
-            if (value == 0 ) {
+            if (value == 0) {
                 break;
             } else {
-                result++;
+                result = String.valueOf(Integer.parseInt(result) + 1);
             }
         }
         System.out.println(result);
-
     }
-
-
 }
