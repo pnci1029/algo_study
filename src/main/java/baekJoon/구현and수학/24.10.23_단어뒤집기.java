@@ -18,58 +18,64 @@ public class Solve {
         Scanner scanner = new Scanner(System.in);
 
         String value = scanner.nextLine();
-        List<String> result = new ArrayList<>();
+        System.out.println(reverseProcess(value));
+    }
 
+    private static String reverseProcess(String value) {
         if (value.contains("<")) {
-            String[] splitValue = value.split("");
-
-            boolean isStarted = false;
-            String data = "";
-            String remainedData = "";
-            for (String s : splitValue) {
-                if (s.equals("<")) {
-                    isStarted = true;
-
-                    remainedData = remove(remainedData);
-                    if (!remainedData.equals("")) {
-                        result.add(normalSplit(remainedData).trim());
-                        remainedData = "";
-                    }
-                }
-
-                if (s.equals(">")) {
-                    isStarted = false;
-                    data += ">";
-                    result.add(data);
-                    data = "";
-                }
-
-                if (isStarted) {
-                    data += s;
-                } else {
-                    remainedData += s;
-                }
-            }
-            if (!remainedData.equals("")) {
-                remainedData = remove(remainedData);
-                result.add(normalSplit(remainedData));
-            }
-
-            for (String s : result) {
-                value = value.replace(s, "");
-            }
-
-            StringBuilder sb = new StringBuilder();
-            for (String s : result) {
-                sb.append(s);
-            }
-
-            System.out.println(sb.toString().trim());
+            return tagsSplit(value);
         } else {
-            System.out.println(normalSplit(value).trim());
-            ;
+            return normalSplit(value);
+        }
+    }
+
+    private static String tagsSplit(String value) {
+        List<String> result = new ArrayList<>();
+        String[] splitValue = value.split("");
+
+        boolean isStarted = false;
+        String data = "";
+        String remainedData = "";
+        
+        for (String s : splitValue) {
+            if (s.equals("<")) {
+                isStarted = true;
+
+                remainedData = removeTags(remainedData);
+                if (!remainedData.equals("")) {
+                    result.add(normalSplit(remainedData).trim());
+                    remainedData = "";
+                }
+            }
+
+            if (s.equals(">")) {
+                isStarted = false;
+                data += ">";
+                result.add(data);
+                data = "";
+            }
+
+            if (isStarted) {
+                data += s;
+            } else {
+                remainedData += s;
+            }
+        }
+        if (!remainedData.equals("")) {
+            remainedData = removeTags(remainedData);
+            result.add(normalSplit(remainedData));
         }
 
+        for (String s : result) {
+            value = value.replace(s, "");
+        }
+
+        StringBuilder sb = new StringBuilder();
+        for (String s : result) {
+            sb.append(s);
+        }
+
+        return sb.toString().trim();
     }
 
     private static String normalSplit(String value) {
@@ -91,9 +97,8 @@ public class Solve {
         return sb.toString();
     }
 
-    private static String remove(String value) {
-        value = value.replace(">", "");
-        value = value.replace("<", "");
+    private static String removeTags(String value) {
+        value = value.replace(">", "").replace("<","");
         return value;
     }
 }
