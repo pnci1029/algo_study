@@ -11,7 +11,7 @@ import java.util.*;
    <p>
    <ab cd>ef gh<ij kl>
   */
-// https://www.acmicpc.net/problem/14916
+// https://www.acmicpc.net/problem/17413
 public class Solve {
     public static void main(String[] args) {
 
@@ -33,48 +33,52 @@ public class Solve {
         List<String> result = new ArrayList<>();
         String[] splitValue = value.split("");
 
-        boolean isStarted = false;
-        String data = "";
-        String remainedData = "";
-        
+        StringBuilder data = new StringBuilder();
+        StringBuilder remainedData = new StringBuilder();
+        boolean isTagStarted = false;
+
         for (String s : splitValue) {
             if (s.equals("<")) {
-                isStarted = true;
-
-                remainedData = removeTags(remainedData);
-                if (!remainedData.equals("")) {
-                    result.add(normalSplit(remainedData).trim());
-                    remainedData = "";
-                }
+                isTagStarted = true;
+                processRemainedData(result, remainedData);
             }
 
             if (s.equals(">")) {
-                isStarted = false;
-                data += ">";
-                result.add(data);
-                data = "";
+                isTagStarted = false;
+                processTagData(result, data);
             }
 
-            if (isStarted) {
-                data += s;
+            if (isTagStarted) {
+                data.append(s);
             } else {
-                remainedData += s;
+                remainedData.append(s);
             }
         }
-        if (!remainedData.equals("")) {
-            remainedData = removeTags(remainedData);
-            result.add(normalSplit(remainedData));
-        }
 
-        for (String s : result) {
-            value = value.replace(s, "");
-        }
+        processRemainedData(result, remainedData);
 
+        return combineResult(result);
+    }
+
+    private static void processRemainedData(List<String> result, StringBuilder remainedData) {
+        if (remainedData.length() > 0) {
+            String cleanedData = removeTags(remainedData.toString());
+            result.add(normalSplit(cleanedData).trim());
+            remainedData.setLength(0);
+        }
+    }
+
+    private static void processTagData(List<String> result, StringBuilder data) {
+        data.append(">");
+        result.add(data.toString());
+        data.setLength(0);
+    }
+
+    private static String combineResult(List<String> result) {
         StringBuilder sb = new StringBuilder();
         for (String s : result) {
             sb.append(s);
         }
-
         return sb.toString().trim();
     }
 
@@ -84,12 +88,14 @@ public class Solve {
 
         for (String s : split) {
             String[] split1 = s.split("");
-            String data = "";
+            StringBuilder data = new StringBuilder();
+
             for (int i = split1.length - 1; i >= 0; i--) {
-                data += split1[i];
+                data.append(split1[i]);
             }
-            result.add(data);
+            result.add(data.toString());
         }
+
         StringBuilder sb = new StringBuilder();
         for (String s : result) {
             sb.append(s).append(" ");
