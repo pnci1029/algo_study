@@ -127,3 +127,41 @@ class Solution {
         return new String(chars);
     }
 }
+
+
+v3
+    class Solution {
+    public String reverseVowels(String s) {
+         Set<Character> vowels = Set.of('a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U');
+        
+        // char 배열 사용 (String 배열보다 효율적)
+        char[] chars = s.toCharArray();
+        
+        // 투 포인터 방식 사용
+        int left = 0;
+        int right = chars.length - 1;
+        
+        while (left < right) {
+            // 왼쪽에서 모음 찾기
+            while (left < right && !vowels.contains(chars[left])) {
+                left++;
+            }
+            
+            // 오른쪽에서 모음 찾기
+            while (left < right && !vowels.contains(chars[right])) {
+                right--;
+            }
+            
+            // 모음 교환
+            if (left < right) {
+                char temp = chars[left];
+                chars[left] = chars[right];
+                chars[right] = temp;
+                left++;
+                right--;
+            }
+        }
+        
+        return new String(chars);
+    }
+}
