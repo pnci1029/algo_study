@@ -88,3 +88,42 @@ class Solution {
        }
    }
 }
+
+
+v2
+class Solution {
+    public String reverseVowels(String s) {
+        // 모음 배열
+        char[] vowels = {'a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U'};
+        
+        // 모음을 저장할 리스트
+        List<Character> vowelList = new ArrayList<>();
+        char[] chars = s.toCharArray();  // String을 char 배열로 변환
+        
+        // 첫번째 순회: 모음 찾아서 리스트에 저장
+        for (char c : chars) {
+            for (char vowel : vowels) {
+                if (c == vowel) {
+                    vowelList.add(c);
+                    break;  // 모음 찾았으면 더 이상 검사할 필요 없음
+                }
+            }
+        }
+        
+        // 모음 리스트 뒤집기
+        Collections.reverse(vowelList);
+        
+        // 두번째 순회: 모음 교체
+        int vowelIndex = 0;
+        for (int i = 0; i < chars.length; i++) {
+            for (char vowel : vowels) {
+                if (chars[i] == vowel) {
+                    chars[i] = vowelList.get(vowelIndex++);
+                    break;
+                }
+            }
+        }
+        
+        return new String(chars);
+    }
+}
