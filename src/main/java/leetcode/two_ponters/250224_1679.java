@@ -8,29 +8,23 @@ class Solution {
 
         int first = 0;
         int last = nums.length - 1;
-        List<Integer> box = new ArrayList<>();
-        System.out.println(Arrays.toString(nums));
+        int count = 0;
 
-        while(true){
-            if(first>=last)break;
-            System.out.println("first : " + first);
-            System.out.println("last : " + last);
-
-            if(nums[first] + nums[last] == k){
-                box.add(first);
-                box.add(last);
+        while(first < last){
+            int sum = nums[first] + nums[last];
+            if(sum == k){
                 first++;
                 last--;
+                count++;
             }else {
-                if(nums[first] + nums[last] >k){
+                if(sum >k){
                     last--;
                 }else{
                     first++;
                 }
             }
         }
-        System.out.println(box);
 
-        return box.size()/2;
+        return count;
     }
 }
