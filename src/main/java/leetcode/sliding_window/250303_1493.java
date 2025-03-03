@@ -42,3 +42,33 @@ class Solution {
         return maxValue;
     }
 }
+
+
+// V2
+class Solution {
+    public int longestSubarray(int[] nums) {
+        int maxLength = 0;
+        int zeroCount = 0;
+        int left = 0;
+        
+        for (int right = 0; right < nums.length; right++) {
+            // 윈도우에 0 추가
+            if (nums[right] == 0) {
+                zeroCount++;
+            }
+            
+            // 0이 두 개 이상이면 왼쪽 포인터 이동
+            while (zeroCount > 1) {
+                if (nums[left] == 0) {
+                    zeroCount--;
+                }
+                left++;
+            }
+            
+            // 윈도우 크기 계산 (하나의 요소는 반드시 삭제해야 하므로 -1)
+            maxLength = Math.max(maxLength, right - left);
+        }
+        
+        return maxLength;
+    }
+}
