@@ -1,3 +1,26 @@
+v2
+class Solution {
+    public String removeStars(String s) {
+        Stack<Character> stack = new Stack<>();
+        String [] split = s.split("");
+
+        for(char value: s.toCharArray()){
+            if(value == '*'){
+                stack.pop();
+            }else {
+                stack.push(value);
+            }
+        }
+
+        StringBuilder sb = new StringBuilder();
+        for(char value: stack){
+            sb.append(value);
+        }
+
+        return sb.toString();
+    }
+}
+
 v1
 class Solution {
     public String removeStars(String s) {
