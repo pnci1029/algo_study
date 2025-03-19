@@ -3,41 +3,6 @@ package com.example.vargenerator.api.controller;
 
 import java.util.*;
 
-/**
-8 8
-WBWBWBWB
-BWBWBWBW
-WBWBWBWB
-BWBBBWBW
-WBWBWBWB
-BWBWBWBW
-WBWBWBWB
-BWBWBWBW
-<p>
-<p>
-10 13
-BBBBBBBBWBWBW
-BBBBBBBBBWBWB
-BBBBBBBBWBWBW
-BBBBBBBBBWBWB
-BBBBBBBBWBWBW
-BBBBBBBBBWBWB
-BBBBBBBBWBWBW
-BBBBBBBBBWBWB
-WWWWWWWWWWBWB
-WWWWWWWWWWBWB
-<p>
-9 23
-BBBBBBBBBBBBBBBBBBBBBBB
-BBBBBBBBBBBBBBBBBBBBBBB
-BBBBBBBBBBBBBBBBBBBBBBB
-BBBBBBBBBBBBBBBBBBBBBBB
-BBBBBBBBBBBBBBBBBBBBBBB
-BBBBBBBBBBBBBBBBBBBBBBB
-BBBBBBBBBBBBBBBBBBBBBBB
-BBBBBBBBBBBBBBBBBBBBBBB
-BBBBBBBBBBBBBBBBBBBBBBW
- */
 public class Solve {
     public static void main(String[] args) {
 
@@ -92,15 +57,6 @@ public class Solve {
             }
         }
         return Math.min(bCount, wCount);
-    }
-
-
-    public static char changeValue(char value) {
-        if (value == 'B') {
-            return 'W';
-        } else {
-            return 'B';
-        }
     }
 }
 
