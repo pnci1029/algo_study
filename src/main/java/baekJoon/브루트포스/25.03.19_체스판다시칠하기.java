@@ -46,10 +46,10 @@ public class Solve {
         int totalCount = 0;
         int result = Integer.MAX_VALUE;
 
-        int column = scanner.nextInt();
         int row = scanner.nextInt();
+        int column = scanner.nextInt();
 
-        char [][] box = new char[column][row];
+        char [][] box = new char[row][column];
 
 
         for(int i =0; i< column; i++){
